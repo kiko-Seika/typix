@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing Game - Left Hand Zone</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f4f8;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .letter {
+      font-size: 80px;
+      font-weight: bold;
+      margin: 30px;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    .combo {
+      font-size: 24px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Typing Game: Left Hand Zone</h1>
+  <div class="letter" id="letter">A</div>
+  <div class="combo" id="combo">Combo: 0</div>
+
+  <script>
+    const leftHandKeys = ['q', 'w', 'e', 'r', 'a', 's', 'd', 'f'];
+    const letterElement = document.getElementById('letter');
+    const comboElement = document.getElementById('combo');
+    let combo = 0;
+
+    function getRandomLetter() {
+      const randIndex = Math.floor(Math.random() * leftHandKeys.length);
+      return leftHandKeys[randIndex];
+    }
+
+    function setNewLetter() {
+      const newLetter = getRandomLetter();
+      letterElement.textContent = newLetter.toUpperCase();
+      letterElement.className = 'letter';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const currentLetter = letterElement.textContent.toLowerCase();
+      if (e.key.toLowerCase() === currentLetter) {
+        letterElement.className = 'letter correct';
+        combo++;
+        comboElement.textContent = `Combo: ${combo}`;
+      } else {
+        letterElement.className = 'letter incorrect';
+        combo = 0;
+        comboElement.textContent = `Combo: ${combo}`;
+      }
+      setTimeout(setNewLetter, 300);
+    });
+
+    setNewLetter();
+  </script>
+</body>
+</html>
